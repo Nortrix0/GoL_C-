@@ -56,19 +56,13 @@ int main()
 {
     ShowWindow(GetConsoleWindow(), SW_SHOWMAXIMIZED);
     SetConsoleCursorInfo(hStdout, &cursorinfo);
-    //do
-    //{
+    do
+    {
         gameOver = false;
-        unsigned short newCell;
-        newCell = 'O ' - ' ';
-        newCell += 255;
-        std::cout << char(newCell >> 8) << ' ';
-        std::cout << unsigned short(65535 - (newCell << 8)) << ' ';
-        //std::cout << std::bitset<64>(newCell) << ' ';
-        //generateInitialCells();
-        //while (!gameOver) {
-            //Sleep(50);
-            //updateAndRedrawCells();
-        //}
-    //} while (getchar() == '\n');
+        generateInitialCells();
+        while (!gameOver) {
+            Sleep(50);
+            updateAndRedrawCells();
+        }
+    } while (getchar() == '\n');
 }
