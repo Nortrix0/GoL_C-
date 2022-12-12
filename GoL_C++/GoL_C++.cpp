@@ -1,7 +1,6 @@
 ﻿// GoL_C++.cpp : This file contains the 'main' function. Program execution begins and ends there.
 #include <windows.h>
 #include <random>
-#include <iostream>
 const int width = 118;//To have a single char represent a cell multiply this by 2
 const int height = 62;
 const int chanceOfInitialCell = 10;
