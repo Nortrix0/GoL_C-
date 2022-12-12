@@ -2,7 +2,6 @@
 #include <windows.h>
 #include <random>
 #include <iostream>
-#include <bitset>
 const int width = 118;//To have a single char represent a cell multiply this by 2
 const int height = 62;
 const int chanceOfInitialCell = 10;
@@ -45,7 +44,7 @@ void updateAndRedrawCells() {
     printf("%s", board);
     bool matchFound = false;
     for (size_t i = 0; i < maxListSize; i++)
-        if (memcmp(lastboards[i], board, sizeof(board)))
+        if (memcmp(lastboards[i], board, sizeof(board)) == 0)
             matchFound = true;
     timesBoardsMatched = matchFound ? timesBoardsMatched + 1 : 0;
     if (timesBoardsMatched >= timesBoardsCanMatch) gameOver = true;
