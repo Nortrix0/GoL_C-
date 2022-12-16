@@ -16,7 +16,7 @@ int amountInArray = 0;
 int main()
 {
     printf("\33[?25l");//Turn Cursor Invisible
-    printf("\33[8;63;237t");
+    printf("\33[8;063;237t");//Set window size to 1 higher than width and height
     do
     {
         gameOver = false;
@@ -27,7 +27,6 @@ int main()
             int boardIndex = 0;
             memcpy(cellsUpdated, cells, sizeof(cells));
             for (int y = 0; y < height; y++)
-            {
                 for (int x = 0; x < width; x++)
                 {
                     int neighborsAlive = 0;
@@ -35,11 +34,11 @@ int main()
                         for (int nx = (x - 1 + width) % width; nx != (x + 2 + width) % width; nx = (nx + 1) % width)
                             if (!(x == nx && y == ny)) neighborsAlive += cells[ny][nx];
                     cellsUpdated[y][x] = neighborsAlive == 3 || (cells[y][x] && neighborsAlive == 2);
-                    board[boardIndex++] = cellsUpdated[y][x] ? 219 : ' ';//To have a single char as a cell remove the other line and replace 219 with 'O'
-                    board[boardIndex++] = cellsUpdated[y][x] ? 219 : ' ';
+                    board[boardIndex++] = cellsUpdated[y][x] ? 219 : ' ';//To have a single char as a cell replace 219 with 'O'
+                    board[boardIndex++] = cellsUpdated[y][x] ? 219 : ' ';//To have a single char as a cell remove this line
+                    if (x + 1 == width)
+                        board[boardIndex++] = '\n';
                 }
-                board[boardIndex++] = '\n';
-            }
             printf("\33[;H");//Set Cursor Position to Top
             printf("%s", board);
             bool matchFound = false;
