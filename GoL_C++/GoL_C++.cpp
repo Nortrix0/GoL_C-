@@ -1,6 +1,6 @@
 ﻿// GoL_C++.cpp : This file contains the 'main' function. Program execution begins and ends there.
-#include <windows.h>
-#include <random>
+#include <chrono>
+#include <thread>
 const int width = 118;//To have a single char represent a cell multiply this by 2
 const int height = 62;
 const int chanceOfInitialCell = 10;
@@ -13,20 +13,17 @@ int timesBoardsCanMatch = 50;
 char lastboards[maxListSize][width*2 * height + height];//To have a single char represent a cell remove the multiply by 2
 char board[width * 2 * height + height];//To have a single char represent a cell remove the multiply by 2
 int amountInArray = 0;
-const HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-const COORD dest = {0,0};
-const CONSOLE_CURSOR_INFO cursorinfo = {1, 0};
 int main()
 {
-    ShowWindow(GetConsoleWindow(), SW_SHOWMAXIMIZED);
-    SetConsoleCursorInfo(hStdout, &cursorinfo);
+    printf("\33[?25l");//Turn Cursor Invisible
+    printf("\33[8;63;237t");
     do
     {
         gameOver = false;
         for (unsigned short i = 0; i < width * height; i++)
             cells[i % height][i / height] = rand() % 100 <= chanceOfInitialCell;
         while (!gameOver) {
-            Sleep(50);
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
             int boardIndex = 0;
             memcpy(cellsUpdated, cells, sizeof(cells));
             for (int y = 0; y < height; y++)
@@ -43,7 +40,7 @@ int main()
                 }
                 board[boardIndex++] = '\n';
             }
-            SetConsoleCursorPosition(hStdout, dest);
+            printf("\33[;H");//Set Cursor Position to Top
             printf("%s", board);
             bool matchFound = false;
             for (size_t i = 0; i < maxListSize; i++)
