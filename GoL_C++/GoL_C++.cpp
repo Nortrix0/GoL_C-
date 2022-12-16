@@ -37,8 +37,7 @@ int main()
                     for (int ny = (y - 1 + height) % height; ny != (y + 2 + height) % height; ny = (ny + 1) % height)
                         for (int nx = (x - 1 + width) % width; nx != (x + 2 + width) % width; nx = (nx + 1) % width)
                             if (!(x == nx && y == ny)) neighborsAlive += cells[ny][nx];
-                    if ((!cells[y][x] && neighborsAlive == 3) || (cells[y][x] && (neighborsAlive == 2 || neighborsAlive == 3))) cellsUpdated[y][x] = true;
-                    else cellsUpdated[y][x] = false;
+                    cellsUpdated[y][x] = neighborsAlive == 3 || (cells[y][x] && neighborsAlive == 2);
                     board[boardIndex++] = cellsUpdated[y][x] ? 219 : ' ';//To have a single char as a cell remove the other line and replace 219 with 'O'
                     board[boardIndex++] = cellsUpdated[y][x] ? 219 : ' ';
                 }
